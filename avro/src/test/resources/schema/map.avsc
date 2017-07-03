@@ -1,0 +1,4 @@
+{"namespace": "example.avro",
+ "type": "map",
+ "items": "string"
+}

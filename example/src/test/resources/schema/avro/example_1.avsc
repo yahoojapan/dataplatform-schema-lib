@@ -1,0 +1,15 @@
+{"namespace": "schema.example",
+  "type": "record",
+  "name": "log",
+  "fields": [
+    {"name": "ip", "type": "string"},
+    {"name": "timestamp",  "type": "long"},
+    {"name": "url",  "type": "string"},
+    {"name": "referrer",  "type": "string"},
+    {"name": "useragent",  "type": "string"},
+    {"name": "abcd_long",  "type": "long"},
+    {"name": "sessionid",  "type": ["null","int"], "default": null},
+    {"name": "sessionid2",  "type": ["null","int","string"], "default": null},
+    {"name": "sessionid3",  "type": ["null","string"], "default": null}
+  ]
+}

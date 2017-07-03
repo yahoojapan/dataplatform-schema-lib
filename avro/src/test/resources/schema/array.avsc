@@ -1,0 +1,4 @@
+{"namespace": "example.avro",
+ "type": "array",
+ "items": "int"
+}

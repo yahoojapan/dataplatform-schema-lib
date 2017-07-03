@@ -1,0 +1,20 @@
+{"namespace": "example.avro",
+ "type": "record",
+ "name": "User",
+ "fields": [
+     {"name": "name", "type": "string"},
+     {"name": "map_value", "type": {
+        "type": "map" , "values": "string"
+     }},
+     {"name": "array_value", "type": {
+        "type": "array" , "items": "long"
+     }},
+     { "name": "record_value" ,  "type": {
+        "name": "record_value" , "type": "record" , "fields": [
+          {"name": "value1", "type": "string"},
+          {"name": "value2", "type": "string"},
+          {"name": "value3", "type": "string"}
+        ]
+     }}
+ ]
+}
