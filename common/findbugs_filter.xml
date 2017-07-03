@@ -16,8 +16,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 --> 
 <FindBugsFilter>
-	<Match>
-		<Class name="yahoo.ubpf.structure.event.manager.metrics.processor.key.uniq.UniqueKey" />
-		<Bug code="EI" />
-	</Match>
 </FindBugsFilter>
