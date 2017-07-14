@@ -1,5 +1,5 @@
 # schema_lib
-データを扱うためのスキーマライブラリ
+Dataplatform Schema is a generalized nested schema. This Library provides flexible formatter and parser to various data schema widly used, JSON, Avro and so on.
 
 ## Requirements
 
