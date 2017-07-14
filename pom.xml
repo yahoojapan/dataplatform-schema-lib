@@ -18,12 +18,48 @@ limitations under the License.
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>yahoo.dataplatform.schema</groupId>
+  <groupId>jp.co.yahoo.dataplatform.schema</groupId>
   <artifactId>schema</artifactId>
   <version>0.2.11</version>
   <packaging>pom</packaging>
 
   <name>Yahoo dataplatform schema</name>
+  <description>
+    Dataplatform Schema is a generalized nested schema. This Library provides flexible formatter and parser to various data schema widly used, JSON, Avro and so on.
+  </description>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>git@github.com:yahoojapan/dataplatform-schema-lib.git</connection>
+    <developerConnection>git@github.com:yahoojapan/dataplatform-schema-lib.git</developerConnection>
+    <url>https://github.com/yahoojapan/dataplatform-schema-lib</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <organization>
+    <name>Yahoo Japan Corporation</name>
+    <url>https://www.yahoo.co.jp/</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>shoe116</id>
+      <name>Shu Suzuki</name>
+      <organization>Yahoo Japan Corporation</organization>
+    </developer>
+    <developer>
+      <id>koijima</id>
+      <name>Koji Ijima</name>
+      <organization>Yahoo Japan Corporation</organization>
+    </developer>
+  </developers>
+
 
   <distributionManagement>
       <snapshotRepository>
