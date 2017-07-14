@@ -19,7 +19,7 @@ limitations under the License.
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>yahoo.dataplatform.schema</groupId>
+    <groupId>jp.co.yahoo.dataplatform.schema</groupId>
     <artifactId>schema</artifactId>
     <version>0.2.11</version>
     <relativePath>../pom.xml</relativePath>
@@ -70,12 +70,12 @@ limitations under the License.
 
   <dependencies>
     <dependency>
-      <groupId>yahoo.dataplatform.schema</groupId>
+      <groupId>jp.co.yahoo.dataplatform.schema</groupId>
       <artifactId>schema-common</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>yahoo.dataplatform.schema</groupId>
+      <groupId>jp.co.yahoo.dataplatform.schema</groupId>
       <artifactId>schema-hive</artifactId>
       <version>${project.version}</version>
     </dependency>
