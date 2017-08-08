@@ -21,7 +21,7 @@ limitations under the License.
   <parent>
     <groupId>jp.co.yahoo.dataplatform.schema</groupId>
     <artifactId>schema</artifactId>
-    <version>0.2.11</version>
+    <version>0.2.11-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -116,19 +116,4 @@ limitations under the License.
       <version>1.7.7</version>
     </dependency>
   </dependencies>
-
-  <build>
-    <finalName>yjava_jp_dataplatform_schema_example</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
