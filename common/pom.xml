@@ -21,7 +21,7 @@ limitations under the License.
   <parent>
     <groupId>jp.co.yahoo.dataplatform.schema</groupId>
     <artifactId>schema</artifactId>
-    <version>0.2.11</version>
+    <version>0.2.11-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -29,9 +29,6 @@ limitations under the License.
   <packaging>jar</packaging>
   <name>schema common</name>
 
-  <artifactId>schema-avro</artifactId>
-  <packaging>jar</packaging>
-  <name>schema avro</name>
   <description>
     Dataplatform Schema is a generalized nested schema. This Package provides common interface for our library.
   </description>
@@ -71,19 +68,4 @@ limitations under the License.
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
-  <build>
-    <finalName>yjava_jp_dataplatform_schema_common</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
