@@ -17,6 +17,13 @@
  */
 package jp.co.yahoo.dataplatform.schema.design;
 
+import java.io.IOException;
+
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
+
 import jp.co.yahoo.dataplatform.schema.utils.Properties;
 
 public class ArrayContainerField implements IContainerField {
@@ -55,6 +62,32 @@ public class ArrayContainerField implements IContainerField {
   @Override
   public FieldType getFieldType(){
     return FieldType.ARRAY;
+  }
+
+  @Override
+  public void merge( final IField target ) throws IOException{
+    if( ! ( target instanceof ArrayContainerField ) ){
+      throw new UnsupportedOperationException( "target is not ArrayContainerField." );
+    }
+    ArrayContainerField targetField = (ArrayContainerField)target;
+    IField targetChildField = targetField.getField();
+    if( targetChildField.getFieldType() != childField.getFieldType() ){
+      UnionField newField = new UnionField( name , properties );
+      newField.set( childField );
+    }
+    childField.merge( targetChildField );
+  }
+
+  @Override
+  public Map<Object,Object> toJavaObject() throws IOException{
+    LinkedHashMap<Object,Object> schemaJavaObject = new LinkedHashMap<Object,Object>();
+    schemaJavaObject.put( "name" , getName() );
+    schemaJavaObject.put( "type" , getFieldType().toString() );
+    schemaJavaObject.put( "properties" , getProperties().toMap() );
+    List<Object> childList = new ArrayList<Object>();
+    childList.add( getField().toJavaObject() );
+    schemaJavaObject.put( "child" , childList );
+    return schemaJavaObject;
   }
 
 }

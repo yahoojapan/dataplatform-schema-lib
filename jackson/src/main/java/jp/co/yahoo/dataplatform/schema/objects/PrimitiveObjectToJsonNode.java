@@ -31,33 +31,27 @@ import com.fasterxml.jackson.databind.node.TextNode;
 public class PrimitiveObjectToJsonNode{
 
   public static JsonNode get( final PrimitiveObject obj ) throws IOException{
-
-    if( obj instanceof StringObj ){
-      return new TextNode( obj.getString() );
-    }
-    else if( obj instanceof BooleanObj ){
-      return BooleanNode.valueOf( obj.getBoolean() );
-    }
-    else if( obj instanceof ShortObj ){
-      return IntNode.valueOf( obj.getInt() );
-    }
-    else if( obj instanceof IntegerObj ){
-      return IntNode.valueOf( obj.getInt() );
-    }
-    else if( obj instanceof LongObj ){
-      return new LongNode( obj.getLong() );
-    }
-    else if( obj instanceof FloatObj ){
-      return new DoubleNode( obj.getDouble() );
-    }
-    else if( obj instanceof DoubleObj ){
-      return new DoubleNode( obj.getDouble() );
-    }
-    else if( obj instanceof BytesObj ){
-      return new BinaryNode( obj.getBytes() );
-    }
-    else{
-      return new TextNode( null );
+    switch( obj.getPrimitiveType() ){
+      case BOOLEAN:
+        return BooleanNode.valueOf( obj.getBoolean() );
+      case BYTE:
+        return IntNode.valueOf( obj.getInt() );
+      case SHORT:
+        return IntNode.valueOf( obj.getInt() );
+      case INTEGER:
+        return IntNode.valueOf( obj.getInt() );
+      case LONG:
+        return new LongNode( obj.getLong() );
+      case FLOAT:
+        return new DoubleNode( obj.getDouble() );
+      case DOUBLE:
+        return new DoubleNode( obj.getDouble() );
+      case STRING:
+        return new TextNode( obj.getString() );
+      case BYTES:
+        return new BinaryNode( obj.getBytes() );
+      default:
+        return new TextNode( null );
     }
   }
 

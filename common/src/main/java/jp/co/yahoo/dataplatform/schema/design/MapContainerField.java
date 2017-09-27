@@ -21,6 +21,9 @@ import java.io.IOException;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 import jp.co.yahoo.dataplatform.schema.utils.Properties;
 
@@ -94,6 +97,44 @@ public class MapContainerField implements INamedContainerField {
   @Override
   public FieldType getFieldType(){
     return FieldType.MAP;
+  }
+
+  @Override
+  public void merge( final IField target ) throws IOException{
+    if( ! ( target instanceof MapContainerField ) ){
+      throw new UnsupportedOperationException( "target is not MapContainerField." );
+    }
+    MapContainerField targetField = (MapContainerField)target;
+    for( String targetKey : targetField.getKeys() ){
+      IField targetChildField = targetField.get( targetKey );
+      if( containsKey( targetKey ) ){
+        IField childField = get( targetKey );
+        if( targetChildField.getFieldType() != childField.getFieldType() ){
+          UnionField newField = new UnionField( childField.getName() , childField.getProperties() );
+          newField.set( childField );
+          set( childField );
+        }
+        childField.merge( targetChildField );
+      }
+      else{
+        set( targetChildField );
+      }
+    }
+  }
+
+  @Override
+  public Map<Object,Object> toJavaObject() throws IOException{
+    LinkedHashMap<Object,Object> schemaJavaObject = new LinkedHashMap<Object,Object>();
+    schemaJavaObject.put( "name" , getName() );
+    schemaJavaObject.put( "type" , getFieldType().toString() );
+    schemaJavaObject.put( "properties" , getProperties().toMap() );
+    schemaJavaObject.put( "default" , getField().toJavaObject() );
+    List<Object> childList = new ArrayList<Object>();
+    for( String key : getKeys() ){
+      childList.add( get( key ).toJavaObject() );
+    }
+    schemaJavaObject.put( "child" , childList );
+    return schemaJavaObject;
   }
 
 }

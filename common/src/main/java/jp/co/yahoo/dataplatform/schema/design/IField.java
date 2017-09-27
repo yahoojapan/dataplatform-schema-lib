@@ -17,14 +17,29 @@
  */
 package jp.co.yahoo.dataplatform.schema.design;
 
+import java.io.IOException;
+
+import java.util.Map;
+import java.util.LinkedHashMap;
+
 import jp.co.yahoo.dataplatform.schema.utils.Properties;
 
 public interface IField{
 
-  public String getName();
+  String getName();
 
-  public Properties getProperties();
+  Properties getProperties();
 
-  public FieldType getFieldType();
+  FieldType getFieldType();
+
+  default void merge( final IField target ) throws IOException{}
+
+  default Map<Object,Object> toJavaObject() throws IOException{
+    LinkedHashMap<Object,Object> schemaJavaObject = new LinkedHashMap<Object,Object>();
+    schemaJavaObject.put( "name" , getName() );
+    schemaJavaObject.put( "type" , getFieldType().toString() );
+    schemaJavaObject.put( "properties" , getProperties().toMap() );
+    return schemaJavaObject;
+  }
 
 }

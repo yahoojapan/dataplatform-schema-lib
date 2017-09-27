@@ -47,7 +47,9 @@ public class JacksonArrayFormatter implements IJacksonFormatter{
       else if( childObj instanceof Map ){
         array.add( JacksonContainerToJsonObject.getFromMap( (Map<Object,Object>)childObj ) );
       }
-      array.add( ObjectToJsonNode.get( childObj ) );
+      else{
+        array.add( ObjectToJsonNode.get( childObj ) );
+      }
     }
 
     return array;
