@@ -22,11 +22,11 @@ limitations under the License.
   <artifactId>schema</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
-
   <name>Yahoo dataplatform schema</name>
   <description>
     Dataplatform Schema is a generalized nested schema. This Library provides flexible formatter and parser to various data schema widly used, JSON, Avro and so on.
   </description>
+  <url>https://github.com/yahoojapan/dataplatform-schema-lib</url>
 
   <licenses>
     <license>
@@ -38,7 +38,7 @@ limitations under the License.
   <scm>
     <connection>scm:git:git@github.com:yahoojapan/dataplatform-schema-lib.git</connection>
     <developerConnection>scm:git:git@github.com:yahoojapan/dataplatform-schema-lib.git</developerConnection>
-    <url>https://github.com/yahoojapan/dataplatform-schema-lib</url>
+    <url>scm:git:https://github.com/yahoojapan/dataplatform-schema-lib</url>
     <tag>HEAD</tag>
   </scm>
 
