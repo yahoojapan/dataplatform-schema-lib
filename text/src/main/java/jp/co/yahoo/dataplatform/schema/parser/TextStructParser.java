@@ -26,6 +26,7 @@ import jp.co.yahoo.dataplatform.schema.design.IContainerField;
 import jp.co.yahoo.dataplatform.schema.design.IField;
 import jp.co.yahoo.dataplatform.schema.design.StructContainerField;
 import jp.co.yahoo.dataplatform.schema.objects.BytesObj;
+import jp.co.yahoo.dataplatform.schema.objects.NullObj;
 import jp.co.yahoo.dataplatform.schema.objects.PrimitiveObject;
 import jp.co.yahoo.dataplatform.schema.utils.Properties;
 
@@ -75,12 +76,12 @@ public class TextStructParser implements IParser {
 
     for( int i = readOffset ; i < endOffset && container.size() < fieldNumber ; i++ ){
       if( buffer[i] == delimiter ){
-        container.put( keys[container.size()] , new BytesObj( buffer , readOffset , ( i - readOffset ) ) );
+        container.put( keys[container.size()] , PrimitiveConverter.textObjToPrimitiveObj( schema.get( keys[container.size()] ) , new BytesObj( buffer , readOffset , ( i - readOffset ) ) ) );
         readOffset = i + 1;
         return true;
       }
     }
-    container.put( keys[container.size()] , new BytesObj( buffer , readOffset , ( length - ( readOffset - start ) ) ) );
+    container.put( keys[container.size()] , PrimitiveConverter.textObjToPrimitiveObj( schema.get( keys[container.size()] ) , new BytesObj( buffer , readOffset , ( length - ( readOffset - start ) ) ) ) );
     readOffset = endOffset;
 
     return true;
@@ -98,8 +99,7 @@ public class TextStructParser implements IParser {
 
     PrimitiveObject obj = container.get( key );
     if( obj == null ){
-      obj = new BytesObj( new byte[0] );
-      container.put( key , obj );
+      return NullObj.getInstance();
     }
 
     return obj;

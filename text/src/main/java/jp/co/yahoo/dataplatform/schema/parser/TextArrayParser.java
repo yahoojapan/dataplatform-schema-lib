@@ -73,12 +73,12 @@ public class TextArrayParser implements IParser {
 
     for( int i = readOffset ; i < endOffset ; i++ ){
       if( buffer[i] == delimiter ){
-        container.add( new BytesObj( buffer , readOffset , ( i - readOffset ) ) );
+        container.add( PrimitiveConverter.textObjToPrimitiveObj( childSchema , new BytesObj( buffer , readOffset , ( i - readOffset ) ) ) );
         readOffset = i + 1;
         return true;
       }
     }
-    container.add( new BytesObj( buffer , readOffset , ( length - ( readOffset - start ) ) ) );
+    container.add( PrimitiveConverter.textObjToPrimitiveObj( childSchema , new BytesObj( buffer , readOffset , ( length - ( readOffset - start ) ) ) ) );
     readOffset = endOffset;
 
     return true;

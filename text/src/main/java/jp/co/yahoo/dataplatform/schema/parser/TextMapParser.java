@@ -96,7 +96,8 @@ public class TextMapParser implements IParser {
       if( valueObj == null ){
         valueObj = new BytesObj( new byte[0] );
       }
-      container.put( keyObj.getString() , valueObj );
+      String key = keyObj.getString();
+      container.put( key , PrimitiveConverter.textObjToPrimitiveObj( schema.get( key ) , valueObj ) );
     }
     else{
       return false;
