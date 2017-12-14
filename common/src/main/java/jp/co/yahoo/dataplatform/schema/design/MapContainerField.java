@@ -112,6 +112,7 @@ public class MapContainerField implements INamedContainerField {
         if( targetChildField.getFieldType() != childField.getFieldType() ){
           UnionField newField = new UnionField( childField.getName() , childField.getProperties() );
           newField.set( childField );
+          childField = newField;
           set( childField );
         }
         childField.merge( targetChildField );
