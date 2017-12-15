@@ -29,8 +29,9 @@ import jp.co.yahoo.dataplatform.schema.utils.Properties;
 public class ArrayContainerField implements IContainerField {
 
   private final String name;
-  private final IField childField;
   private final Properties properties;
+
+  private IField childField;
 
   public ArrayContainerField( final String name , final IField childField ){
     this.name = name;
@@ -74,6 +75,7 @@ public class ArrayContainerField implements IContainerField {
     if( targetChildField.getFieldType() != childField.getFieldType() ){
       UnionField newField = new UnionField( name , properties );
       newField.set( childField );
+      childField = newField;
     }
     childField.merge( targetChildField );
   }

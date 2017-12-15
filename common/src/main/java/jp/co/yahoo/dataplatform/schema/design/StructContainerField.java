@@ -65,6 +65,11 @@ public class StructContainerField implements INamedContainerField {
     fieldContainer.put( fieldName , field );
   }
 
+  public void update( final IField field ) throws IOException{
+    String fieldName = field.getName();
+    fieldContainer.put( fieldName , field );
+  }
+
   @Override
   public IField get( final String key ) throws IOException{
     return fieldContainer.get( key );
@@ -104,7 +109,8 @@ public class StructContainerField implements INamedContainerField {
         if( targetChildField.getFieldType() != childField.getFieldType() ){
           UnionField newField = new UnionField( childField.getName() , childField.getProperties() );
           newField.set( childField );
-          set( childField );
+          childField = newField;
+          update( childField );
         }
         childField.merge( targetChildField );
       }
