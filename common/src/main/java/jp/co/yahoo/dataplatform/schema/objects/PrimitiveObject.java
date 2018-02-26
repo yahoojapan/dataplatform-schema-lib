@@ -18,8 +18,9 @@
 package jp.co.yahoo.dataplatform.schema.objects;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public interface PrimitiveObject{
+public interface PrimitiveObject extends Serializable{
 
   public Object get() throws IOException;
 

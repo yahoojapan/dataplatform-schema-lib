@@ -25,10 +25,11 @@ limitations under the License.
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>schema-hcatalog</artifactId>
+  <artifactId>schema-spark</artifactId>
   <packaging>jar</packaging>
+  <name>schema spark</name>
   <description>
-    Dataplatform Schema is a generalized nested schema. This Package provides flexible formatter and parser to Hcatalog.
+    Dataplatform Schema is a generalized nested schema. This Package provides flexible formatter and parser to Avro.
   </description>
 
   <properties>
@@ -42,14 +43,14 @@ limitations under the License.
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>jp.co.yahoo.dataplatform.schema</groupId>
-      <artifactId>schema-hive</artifactId>
-      <version>${project.version}</version>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_2.11</artifactId>
+      <version>2.2.1</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.hive.hcatalog</groupId>
-      <artifactId>hive-hcatalog-core</artifactId>
-      <version>1.2.1</version>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql_2.11</artifactId>
+      <version>2.2.1</version>
     </dependency>
   </dependencies>
 </project>

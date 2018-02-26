@@ -18,6 +18,8 @@
 package jp.co.yahoo.dataplatform.schema.objects;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class BytesObj implements PrimitiveObject{
 
@@ -150,6 +152,17 @@ public class BytesObj implements PrimitiveObject{
   @Override
   public PrimitiveType getPrimitiveType(){
     return PrimitiveType.BYTES;
+  }
+
+  private void writeObject( final ObjectOutputStream out ) throws IOException{
+    out.write( value.length );
+    out.write( value , 0 , value.length );
+  }
+
+  private void readObject( final ObjectInputStream in ) throws IOException{
+    int length = in.readInt();
+    value = new byte[length];
+    in.readFully( value );
   }
 
 }
