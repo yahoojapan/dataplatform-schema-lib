@@ -29,7 +29,11 @@ public class SparkSchemaFactory{
   public static DataType getDataType( final IField schema ) throws IOException{
     switch( schema.getFieldType() ){
       case ARRAY:
-        return DataTypes.createArrayType( getDataType( ( (ArrayContainerField)schema ).getField() ) , true );
+        IField childSchema = ( (ArrayContainerField)schema ).getField();
+        if( childSchema == null ){
+          return DataTypes.NullType;
+        }
+        return DataTypes.createArrayType( getDataType( childSchema ) , true );
       case MAP:
         return DataTypes.createMapType( new StringType() , getDataType( ( (MapContainerField)schema ).getField() ) , true );
       case STRUCT:
