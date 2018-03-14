@@ -94,17 +94,26 @@ public class UnionField implements INamedContainerField {
   @Override
   public void merge( final IField target ) throws IOException{
     if( ! ( target instanceof UnionField ) ){
-      throw new UnsupportedOperationException( "target is not UnionContainerField." );
-    }
-    UnionField targetField = (UnionField)target;
-    for( String targetKey : targetField.getKeys() ){
-      IField targetChildField = targetField.get( targetKey );
-      if( containsKey( targetKey ) ){
-        IField childField = get( targetKey );
-        childField.merge( targetChildField );
+      String fieldName = target.getClass().getName();
+      if( fieldContainer.containsKey( fieldName ) ){
+        IField childField = get( fieldName );
+        childField.merge( target );
       }
       else{
-        set( targetChildField );
+        set( target );
+      }
+    }
+    else{
+      UnionField targetField = (UnionField)target;
+      for( String targetKey : targetField.getKeys() ){
+        IField targetChildField = targetField.get( targetKey );
+        if( containsKey( targetKey ) ){
+          IField childField = get( targetKey );
+          childField.merge( targetChildField );
+        }
+        else{
+          set( targetChildField );
+        }
       }
     }
   }
