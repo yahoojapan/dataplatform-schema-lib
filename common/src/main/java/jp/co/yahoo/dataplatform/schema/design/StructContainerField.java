@@ -112,7 +112,8 @@ public class StructContainerField implements INamedContainerField {
           childField = newField;
           update( childField );
         }
-        childField.merge( targetChildField );
+        UnionField unionChildField = (UnionField)targetChildField;
+        childField.merge( unionChildField );
       }
       else{
         set( targetChildField );
