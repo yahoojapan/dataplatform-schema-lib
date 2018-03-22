@@ -21,7 +21,7 @@ limitations under the License.
   <parent>
     <groupId>jp.co.yahoo.dataplatform.schema</groupId>
     <artifactId>schema</artifactId>
-    <version>1.1.2</version>
+    <version>1.2.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -46,11 +46,13 @@ limitations under the License.
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-core_2.11</artifactId>
       <version>2.2.1</version>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-sql_2.11</artifactId>
       <version>2.2.1</version>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 </project>
