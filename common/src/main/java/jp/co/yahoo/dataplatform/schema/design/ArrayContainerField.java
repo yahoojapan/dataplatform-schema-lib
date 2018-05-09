@@ -72,7 +72,7 @@ public class ArrayContainerField implements IContainerField {
     }
     ArrayContainerField targetField = (ArrayContainerField)target;
     IField targetChildField = targetField.getField();
-    if( targetChildField.getFieldType() != childField.getFieldType() ){
+    if( targetChildField.getFieldType() != childField.getFieldType() && childField.getFieldType() != FieldType.UNION ){
       UnionField newField = new UnionField( name , properties );
       newField.set( childField );
       childField = newField;
