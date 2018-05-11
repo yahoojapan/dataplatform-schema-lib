@@ -106,7 +106,7 @@ public class StructContainerField implements INamedContainerField {
       IField targetChildField = targetField.get( targetKey );
       if( containsKey( targetKey ) ){
         IField childField = get( targetKey );
-        if( targetChildField.getFieldType() != childField.getFieldType() ){
+        if( targetChildField.getFieldType() != childField.getFieldType() && childField.getFieldType() != FieldType.UNION ){
           UnionField newField = new UnionField( childField.getName() , childField.getProperties() );
           newField.set( childField );
           childField = newField;
