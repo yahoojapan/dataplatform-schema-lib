@@ -59,7 +59,7 @@ public class HiveMapParser implements IParser {
 
   @Override
   public IParser getParser( final String key ) throws IOException{
-    return HiveParserFactory.get( childObjectInspector , mapObjectInspector.getMapValueElement( row , key ) );
+    return HiveParserFactory.get( childObjectInspector , mapObjectInspector.getMapValueElement( row , new Text( key ) ) );
   }
 
   @Override
