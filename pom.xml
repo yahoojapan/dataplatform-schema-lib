@@ -20,7 +20,7 @@ limitations under the License.
   <modelVersion>4.0.0</modelVersion>
   <groupId>jp.co.yahoo.dataplatform.schema</groupId>
   <artifactId>schema</artifactId>
-  <version>1.2.1</version>
+  <version>1.2.1_hive-1.2.1000.2.6.4.0-91</version>
   <packaging>pom</packaging>
   <name>Yahoo dataplatform schema</name>
   <description>
@@ -86,6 +86,19 @@ limitations under the License.
     <buildtype>test</buildtype>
     <packageVersion>0.0.35</packageVersion>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>hdp</id>
+      <name>hdp</name>
+      <url>http://repo.hortonworks.com/content/repositories/releases/</url>
+    </repository>
+    <repository>
+      <id>hdp-jetty-hadoop</id>
+      <name>hdp-jetty-hadoop</name>
+      <url>http://repo.hortonworks.com/content/repositories/jetty-hadoop/</url>
+    </repository>
+  </repositories>
 
   <build>
     <plugins>
