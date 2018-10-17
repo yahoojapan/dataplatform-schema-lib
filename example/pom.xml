@@ -21,7 +21,7 @@ limitations under the License.
   <parent>
     <groupId>jp.co.yahoo.dataplatform.schema</groupId>
     <artifactId>schema</artifactId>
-    <version>1.2.1_hive-1.2.1000.2.6.4.0-91</version>
+    <version>1.2.2_hive-1.2.1000.2.6.4.0-91</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
