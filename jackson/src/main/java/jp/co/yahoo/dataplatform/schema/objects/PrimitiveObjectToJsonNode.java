@@ -27,10 +27,14 @@ import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.DoubleNode;
 import com.fasterxml.jackson.databind.node.LongNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import com.fasterxml.jackson.databind.node.NullNode;
 
 public class PrimitiveObjectToJsonNode{
 
   public static JsonNode get( final PrimitiveObject obj ) throws IOException{
+    if( obj == null ){
+      return NullNode.getInstance();
+    }
     switch( obj.getPrimitiveType() ){
       case BOOLEAN:
         return BooleanNode.valueOf( obj.getBoolean() );
@@ -51,7 +55,7 @@ public class PrimitiveObjectToJsonNode{
       case BYTES:
         return new BinaryNode( obj.getBytes() );
       default:
-        return new TextNode( null );
+        return NullNode.getInstance();
     }
   }
 
