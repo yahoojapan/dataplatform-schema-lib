@@ -175,4 +175,9 @@ public class FloatObj implements PrimitiveObject{
     return PrimitiveType.FLOAT;
   }
 
+  @Override
+  public int getObjectSize(){
+    return Float.BYTES;
+  }
+
 }

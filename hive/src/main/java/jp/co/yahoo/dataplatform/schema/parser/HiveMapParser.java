@@ -29,16 +29,15 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.MapObjectInspector;
 
-public class HiveMapParser implements IParser {
+public class HiveMapParser implements IHiveParser {
 
-  private final Object row;
   private final MapObjectInspector mapObjectInspector;
   private final ObjectInspector childObjectInspector;
   private final IHivePrimitiveConverter childConverter;
   private final boolean childHasParser;
+  private Object row;
 
-  public HiveMapParser( final Object row , final MapObjectInspector mapObjectInspector ){
-    this.row = row;
+  public HiveMapParser( final MapObjectInspector mapObjectInspector ){
     this.mapObjectInspector = mapObjectInspector;
     childObjectInspector = mapObjectInspector.getMapValueObjectInspector();
     childConverter = HivePrimitiveConverterFactory.get( childObjectInspector );
@@ -46,6 +45,10 @@ public class HiveMapParser implements IParser {
     childHasParser = HiveParserFactory.hasParser( childObjectInspector );
   }
 
+  @Override
+  public void setObject( final Object row ) throws IOException{
+    this.row = row;
+  }
 
   @Override
   public PrimitiveObject get(final String key ) throws IOException{
@@ -59,7 +62,9 @@ public class HiveMapParser implements IParser {
 
   @Override
   public IParser getParser( final String key ) throws IOException{
-    return HiveParserFactory.get( childObjectInspector , mapObjectInspector.getMapValueElement( row , new Text( key ) ) );
+    IHiveParser childParser =  HiveParserFactory.get( childObjectInspector );
+    childParser.setObject( mapObjectInspector.getMapValueElement( row , new Text( key ) ) );
+    return childParser;
   }
 
   @Override

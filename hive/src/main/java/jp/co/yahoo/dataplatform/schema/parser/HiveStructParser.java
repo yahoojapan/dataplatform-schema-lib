@@ -27,23 +27,28 @@ import jp.co.yahoo.dataplatform.schema.objects.PrimitiveObject;
 import org.apache.hadoop.hive.serde2.objectinspector.StructObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.StructField;
 
-public class HiveStructParser implements IParser {
+public class HiveStructParser implements IHiveParser {
 
-  private final Object row;
   private final StructObjectInspector inspector;
   private final List<? extends StructField> fieldList;
+  private final boolean[] hasParser;
+  private final IHivePrimitiveConverter[] converters;
 
   private Map<String,Integer> fieldIndexMap;
+  private Object row;
 
-  public HiveStructParser( final Object row , final StructObjectInspector structObjectInspector ){
-    this.row = row;
+  public HiveStructParser( final StructObjectInspector structObjectInspector ){
     this.inspector = structObjectInspector;
     fieldIndexMap = new HashMap<String,Integer>();
 
     fieldList = structObjectInspector.getAllStructFieldRefs();
+    hasParser = new boolean[ fieldList.size() ];
+    converters = new IHivePrimitiveConverter[ fieldList.size() ];
     for( int i = 0 ; i < fieldList.size() ; i++ ){
       StructField field = fieldList.get(i);
       fieldIndexMap.put( field.getFieldName() , Integer.valueOf( i ) );
+      hasParser[i] = HiveParserFactory.hasParser( fieldList.get( i ).getFieldObjectInspector() );
+      converters[i] = HivePrimitiveConverterFactory.get( fieldList.get( i ).getFieldObjectInspector() );
     }
   }
 
@@ -51,6 +56,10 @@ public class HiveStructParser implements IParser {
     this.fieldIndexMap = fieldIndexMap;
   }
 
+  @Override
+  public void setObject( final Object row ) throws IOException{
+    this.row = row;
+  }
 
   @Override
   public PrimitiveObject get(final String key ) throws IOException{
@@ -62,9 +71,7 @@ public class HiveStructParser implements IParser {
 
   @Override
   public PrimitiveObject get( final int index ) throws IOException{
-    StructField field = fieldList.get( index );
-    IHivePrimitiveConverter converter = HivePrimitiveConverterFactory.get( field.getFieldObjectInspector() );
-    return converter.get( inspector.getStructFieldData( row, field ) );
+    return converters[index].get( inspector.getStructFieldData( row, fieldList.get( index ) ) );
   }
 
   @Override
@@ -77,7 +84,9 @@ public class HiveStructParser implements IParser {
 
   @Override
   public IParser getParser( final int index ) throws IOException{
-    return HiveParserFactory.get( fieldList.get( index ).getFieldObjectInspector() , inspector.getStructFieldData( row, fieldList.get( index ) ) );
+    IHiveParser childParser = HiveParserFactory.get( fieldList.get( index ).getFieldObjectInspector() );
+    childParser.setObject( inspector.getStructFieldData( row, fieldList.get( index ) ) );
+    return childParser;
   }
 
   @Override
@@ -119,7 +128,7 @@ public class HiveStructParser implements IParser {
 
   @Override
   public boolean hasParser( final int index ) throws IOException{
-    return HiveParserFactory.hasParser( fieldList.get( index ).getFieldObjectInspector() );
+    return hasParser[index];
   }
 
   @Override

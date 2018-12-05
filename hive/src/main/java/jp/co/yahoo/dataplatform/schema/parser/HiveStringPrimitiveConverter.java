@@ -18,10 +18,13 @@
 package jp.co.yahoo.dataplatform.schema.parser;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.hive.serde2.objectinspector.primitive.StringObjectInspector;
 
 import jp.co.yahoo.dataplatform.schema.objects.PrimitiveObject;
-import jp.co.yahoo.dataplatform.schema.objects.StringObj;
-import org.apache.hadoop.hive.serde2.objectinspector.primitive.StringObjectInspector;
+import jp.co.yahoo.dataplatform.schema.objects.BytesStringObj;
 
 import jp.co.yahoo.dataplatform.schema.objects.NullObj;
 
@@ -38,7 +41,13 @@ public class HiveStringPrimitiveConverter implements IHivePrimitiveConverter{
     if( target == null ){
       return NullObj.getInstance();
     }
-    return new StringObj( inspector.getPrimitiveJavaObject( target ) );
+    Text text = inspector.getPrimitiveWritableObject( target );
+    if( text.getLength() == text.getBytes().length ){
+      return new BytesStringObj( text.getBytes() );
+    }
+    else{
+      return new BytesStringObj( text.getBytes() , 0 , text.getLength() );
+    }
   }
 
 }
