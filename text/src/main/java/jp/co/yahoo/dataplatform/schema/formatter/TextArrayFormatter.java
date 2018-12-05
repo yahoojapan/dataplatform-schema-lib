@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -17,53 +17,52 @@
  */
 package jp.co.yahoo.dataplatform.schema.formatter;
 
-import java.io.IOException;
-
-import java.util.List;
-
 import jp.co.yahoo.dataplatform.schema.design.ArrayContainerField;
 import jp.co.yahoo.dataplatform.schema.objects.PrimitiveObject;
 import jp.co.yahoo.dataplatform.schema.parser.IParser;
 import jp.co.yahoo.dataplatform.schema.utils.ByteArrayData;
 import jp.co.yahoo.dataplatform.schema.utils.Properties;
+import java.io.IOException;
+import java.util.List;
 
-public class TextArrayFormatter implements ITextFormatter{
-
+public class TextArrayFormatter implements ITextFormatter {
   private final ITextFormatter childFormatter;
   private final byte[] delimiter;
 
-  public TextArrayFormatter( final ArrayContainerField schema ) throws IOException{
-    childFormatter = TextFormatterFactory.get( schema.getField() ); 
+  public TextArrayFormatter(final ArrayContainerField schema) throws IOException {
+    childFormatter = TextFormatterFactory.get(schema.getField());
 
     Properties properties = schema.getProperties();
-    if( ! properties.containsKey( "delimiter" ) ){
-      throw new IOException( "Delimiter property is not found. Please set array delimiter. Example 0x2c" );
+    if (!properties.containsKey("delimiter")) {
+      throw new IOException("Delimiter property is not found. Please set array delimiter. Example 0x2c");
     }
 
     delimiter = new byte[1];
-    delimiter[0] = (byte)( Integer.decode( properties.get( "delimiter" ) ).intValue() );
+    delimiter[0] = (byte)(Integer.decode(properties.get("delimiter")).intValue());
   }
 
-  public void write(final ByteArrayData buffer , final Object obj ) throws IOException{
-    if( ! ( obj instanceof List ) ){
-      return;
-    }
+  public void write(final ByteArrayData buffer, final Object obj) throws IOException {
+    if (!(obj instanceof List)) return;
+
     List<Object> objList = (List<Object>)obj;
-    for( int i = 0 ; i < objList.size() ; i++ ){
-      if( i != 0 ){
-        buffer.append( delimiter , 0 , delimiter.length );
-      }
-      childFormatter.write( buffer , objList.get(i) );
+    int n = objList.size();
+    if (n <= 0) return;
+
+    childFormatter.write(buffer, objList.get(0));
+    for (int i = 1; i < n; i++) {
+      buffer.append(delimiter, 0, delimiter.length);
+      childFormatter.write(buffer, objList.get(i));
     }
   }
 
   public void writeParser(final ByteArrayData buffer , final PrimitiveObject obj , final IParser parser ) throws IOException{
-    for( int i = 0 ; i < parser.size() ; i++ ){
-      if( i != 0 ){
-        buffer.append( delimiter , 0 , delimiter.length );
-      }
-      childFormatter.writeParser( buffer , parser.get(i) , parser.getParser(i) );
+    int n = parser.size();
+    if (n <= 0) return;
+
+    for (int i = 1; i < n; i++) {
+      buffer.append(delimiter, 0, delimiter.length);
+      childFormatter.writeParser(buffer, parser.get(i), parser.getParser(i));
     }
   }
-
 }
+

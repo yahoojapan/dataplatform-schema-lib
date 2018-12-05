@@ -24,9 +24,7 @@ import jp.co.yahoo.dataplatform.schema.parser.IParser;
 import jp.co.yahoo.dataplatform.schema.utils.ByteArrayData;
 
 public interface ITextFormatter{
-
-  public void write( final ByteArrayData buffer , final Object obj ) throws IOException;
-
-  public void writeParser( final ByteArrayData buffer , final PrimitiveObject obj , final IParser parser ) throws IOException;
-
+  public void write(final ByteArrayData buffer, final Object obj) throws IOException;
+  public void writeParser(final ByteArrayData buffer, final PrimitiveObject obj, final IParser parser) throws IOException;
 }
+
