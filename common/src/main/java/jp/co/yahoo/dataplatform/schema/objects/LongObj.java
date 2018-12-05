@@ -160,4 +160,9 @@ public class LongObj implements PrimitiveObject{
     return PrimitiveType.LONG;
   }
 
+  @Override
+  public int getObjectSize(){
+    return Long.BYTES;
+  }
+
 }

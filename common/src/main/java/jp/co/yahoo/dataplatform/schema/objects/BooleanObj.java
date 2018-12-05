@@ -208,4 +208,10 @@ public class BooleanObj implements PrimitiveObject{
   public PrimitiveType getPrimitiveType(){
     return PrimitiveType.BOOLEAN;
   }
+
+  @Override
+  public int getObjectSize(){
+    return Byte.BYTES;
+  }
+
 }

@@ -151,4 +151,9 @@ public class StringObj implements PrimitiveObject{
     return PrimitiveType.STRING;
   }
 
+  @Override
+  public int getObjectSize(){
+    return value.length() * Character.BYTES;
+  }
+
 }

@@ -178,4 +178,9 @@ public class DoubleObj implements PrimitiveObject{
     return PrimitiveType.DOUBLE;
   }
 
+  @Override
+  public int getObjectSize(){
+    return Double.BYTES;
+  }
+
 }

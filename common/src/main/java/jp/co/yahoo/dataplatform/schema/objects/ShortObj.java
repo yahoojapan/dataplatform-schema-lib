@@ -154,4 +154,9 @@ public class ShortObj implements PrimitiveObject{
     return PrimitiveType.SHORT;
   }
 
+  @Override
+  public int getObjectSize(){
+    return Short.BYTES;
+  }
+
 }

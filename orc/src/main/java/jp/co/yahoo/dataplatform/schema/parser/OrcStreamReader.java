@@ -48,7 +48,9 @@ public class OrcStreamReader implements IStreamReader {
   @Override
   public IParser next() throws IOException{
     row = rows.next( row );
-    return HiveParserFactory.get( inspector , row );
+    IHiveParser parser = HiveParserFactory.get( inspector );
+    parser.setObject( row );
+    return parser;
   }
 
   @Override

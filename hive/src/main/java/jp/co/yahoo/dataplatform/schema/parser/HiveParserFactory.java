@@ -24,15 +24,15 @@ import org.apache.hadoop.hive.serde2.objectinspector.StructObjectInspector;
 
 public class HiveParserFactory{
 
-  public static IParser get( final ObjectInspector objectInspector , final Object row ){
+  public static IHiveParser get( final ObjectInspector objectInspector ){
 
     switch( objectInspector.getCategory() ){
       case LIST:
-        return new HiveListParser( row , (ListObjectInspector)objectInspector );
+        return new HiveListParser( (ListObjectInspector)objectInspector );
       case MAP:
-        return new HiveMapParser( row , (MapObjectInspector)objectInspector );
+        return new HiveMapParser( (MapObjectInspector)objectInspector );
       case STRUCT:
-        return new HiveStructParser( row , (StructObjectInspector)objectInspector );
+        return new HiveStructParser( (StructObjectInspector)objectInspector );
       case UNION:
       default:
         return new HiveNullParser();

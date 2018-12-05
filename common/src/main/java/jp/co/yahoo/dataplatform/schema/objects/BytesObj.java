@@ -29,6 +29,7 @@ public class BytesObj implements PrimitiveObject{
     value = new byte[0];
   }
 
+
   public BytesObj( final byte[] data ){
     value = data;
   }
@@ -163,6 +164,11 @@ public class BytesObj implements PrimitiveObject{
     int length = in.readInt();
     value = new byte[length];
     in.readFully( value );
+  }
+
+  @Override
+  public int getObjectSize(){
+    return value.length;
   }
 
 }

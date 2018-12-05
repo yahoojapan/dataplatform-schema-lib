@@ -157,4 +157,9 @@ public class IntegerObj implements PrimitiveObject{
     return PrimitiveType.INTEGER;
   }
 
+  @Override
+  public int getObjectSize(){
+    return Integer.BYTES;
+  }
+
 }

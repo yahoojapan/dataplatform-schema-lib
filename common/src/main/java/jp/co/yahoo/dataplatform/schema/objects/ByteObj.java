@@ -151,4 +151,9 @@ public class ByteObj implements PrimitiveObject{
     return PrimitiveType.BYTE;
   }
 
+  @Override
+  public int getObjectSize(){
+    return Byte.BYTES;
+  }
+
 }

@@ -21,7 +21,11 @@ import java.io.IOException;
 
 import jp.co.yahoo.dataplatform.schema.objects.PrimitiveObject;
 
-public class HiveNullParser implements IParser {
+public class HiveNullParser implements IHiveParser {
+
+  @Override
+  public void setObject( final Object row ) throws IOException{
+  }
 
   @Override
   public PrimitiveObject get(final String key ) throws IOException{

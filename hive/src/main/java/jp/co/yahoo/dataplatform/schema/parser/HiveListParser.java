@@ -29,20 +29,25 @@ import org.apache.hadoop.hive.serde2.objectinspector.ListObjectInspector;
 
 import jp.co.yahoo.dataplatform.schema.objects.PrimitiveObject;
 
-public class HiveListParser implements IParser {
+public class HiveListParser implements IHiveParser{
 
-  private final Object row;
   private final ListObjectInspector listObjectInspector;
   private final ObjectInspector childObjectInspector;
   private final IHivePrimitiveConverter childConverter;
+  private final boolean hasParser;
+  private Object row;
 
-  public HiveListParser( final Object row , final ListObjectInspector listObjectInspector ){
-    this.row = row;
+  public HiveListParser( final ListObjectInspector listObjectInspector ){
     this.listObjectInspector = listObjectInspector;
     childObjectInspector = listObjectInspector.getListElementObjectInspector();
     childConverter = HivePrimitiveConverterFactory.get( childObjectInspector );
+    hasParser = HiveParserFactory.hasParser( childObjectInspector );
   }
 
+  @Override
+  public void setObject( final Object row ) throws IOException{
+    this.row = row;
+  }
 
   @Override
   public PrimitiveObject get( final String key ) throws IOException{
@@ -67,7 +72,9 @@ public class HiveListParser implements IParser {
   @Override
   public IParser getParser( final int index ) throws IOException{
     if( index < size() ){
-      return HiveParserFactory.get( childObjectInspector , listObjectInspector.getListElement( row , index ) );
+      IHiveParser childParser = HiveParserFactory.get( childObjectInspector );
+      childParser.setObject( listObjectInspector.getListElement( row , index ) );
+      return childParser;
     }
     else{
       return new HiveNullParser();
@@ -111,7 +118,7 @@ public class HiveListParser implements IParser {
   @Override
   public boolean hasParser( final int index ) throws IOException{
     if( index < size() ){
-      return HiveParserFactory.hasParser( childObjectInspector );
+      return hasParser;
     }
     return false;
   }

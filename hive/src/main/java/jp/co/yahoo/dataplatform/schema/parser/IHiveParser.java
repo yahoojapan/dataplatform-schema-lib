@@ -19,28 +19,8 @@ package jp.co.yahoo.dataplatform.schema.parser;
 
 import java.io.IOException;
 
-import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
+public interface IHiveParser extends IParser {
 
-public class HiveMessageReader implements IMessageReader {
-
-  public IHiveParser create( final ObjectInspector inspector ) throws IOException{
-    return HiveParserFactory.get( inspector );
-  }
-
-  public IParser create( final ObjectInspector inspector , final Object obj ) throws IOException{
-    IHiveParser parser = HiveParserFactory.get( inspector );
-    parser.setObject( obj );
-    return parser;
-  }
-
-  @Override
-  public IParser create( final byte[] message ) throws IOException{
-    throw new UnsupportedOperationException( "Unsupport create( byte[] message )" );
-  }
-
-  @Override
-  public IParser create( final byte[] message , final int start , final int length ) throws IOException{
-    throw new UnsupportedOperationException( "Unsupport create( byte[] message , int start , int length )" );
-  }
+  void setObject( final Object row ) throws IOException;
 
 }

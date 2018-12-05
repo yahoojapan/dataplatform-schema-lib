@@ -22,50 +22,52 @@ import java.io.Serializable;
 
 public interface PrimitiveObject extends Serializable{
 
-  public Object get() throws IOException;
+  Object get() throws IOException;
 
-  public String getString() throws IOException;
+  String getString() throws IOException;
 
-  public byte[] getBytes() throws IOException;
+  byte[] getBytes() throws IOException;
 
-  public byte getByte() throws IOException;
+  byte getByte() throws IOException;
 
-  public short getShort() throws IOException;
+  short getShort() throws IOException;
 
-  public int getInt() throws IOException;
+  int getInt() throws IOException;
 
-  public long getLong() throws IOException;
+  long getLong() throws IOException;
 
-  public float getFloat() throws IOException;
+  float getFloat() throws IOException;
 
-  public double getDouble() throws IOException;
+  double getDouble() throws IOException;
 
-  public boolean getBoolean() throws IOException;
+  boolean getBoolean() throws IOException;
 
-  public void setString( final String data ) throws IOException;
+  void setString( final String data ) throws IOException;
 
-  public void setBytes( final byte[] data ) throws IOException;
+  void setBytes( final byte[] data ) throws IOException;
 
-  public void setBytes( final byte[] data , final int start , final int length ) throws IOException;
+  void setBytes( final byte[] data , final int start , final int length ) throws IOException;
 
-  public void setByte( final byte data ) throws IOException;
+  void setByte( final byte data ) throws IOException;
 
-  public void setShort( final short data ) throws IOException;
+  void setShort( final short data ) throws IOException;
 
-  public void setInt( final int data ) throws IOException;
+  void setInt( final int data ) throws IOException;
 
-  public void setLong( final long data ) throws IOException;
+  void setLong( final long data ) throws IOException;
 
-  public void setFloat( final float data ) throws IOException;
+  void setFloat( final float data ) throws IOException;
 
-  public void setDouble( final double data ) throws IOException;
+  void setDouble( final double data ) throws IOException;
 
-  public void setBoolean( final boolean data ) throws IOException;
+  void setBoolean( final boolean data ) throws IOException;
 
-  public void set( final PrimitiveObject data ) throws IOException;
+  void set( final PrimitiveObject data ) throws IOException;
 
-  public void clear() throws IOException;
+  void clear() throws IOException;
 
-  public PrimitiveType getPrimitiveType();
+  PrimitiveType getPrimitiveType();
+
+  int getObjectSize();
 
 }

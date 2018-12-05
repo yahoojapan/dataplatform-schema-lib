@@ -132,4 +132,9 @@ public class NullObj implements PrimitiveObject{
     return PrimitiveType.NULL;
   }
 
+  @Override
+  public int getObjectSize(){
+    return 0;
+  }
+
 }
